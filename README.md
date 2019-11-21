@@ -1,7 +1,7 @@
 
 # dataviz
 
-Various visualization. Nothing more.
+Various visualizations. Nothing more.
 
 # Arctinet 2019 ASM
 
