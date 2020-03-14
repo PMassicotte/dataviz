@@ -14,3 +14,7 @@ Various visualizations. Nothing more.
 # 2009 vs 2019: decrease of Arctic sea ice extent
 
 ![](graphs/2009_vs_2019_sea_ice_extent.png)
+
+# Impractical jokers biggest losers
+
+![](graphs/impratical_jokers.png)
