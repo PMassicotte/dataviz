@@ -37,7 +37,7 @@ df_viz %>%
   labs(
     y = NULL,
     x = NULL,
-    title = "*Impractical Jokers* biggest loosers",
+    title = "*Impractical Jokers* biggest losers",
     subtitle = "In 8 seasons, **Sal** and **Murr** have<br>lost more challenges than **Q** and **Joe**.",
     caption = "Data: https://en.wikipedia.org/wiki/List_of_Impractical_Jokers_episodes\nVisualization: @philmassicotte"
   ) +
