@@ -22,7 +22,7 @@ df <- read_html(url) %>%
     into = c("region_no", "region_nom"),
     regex = "(\\d{2})\\W+(.*)"
   ) %>%
-  rename(n = total_du_nombre_de_cas_confirmes_par_region)
+  rename(n = 3)
 
 df
 
