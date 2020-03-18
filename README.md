@@ -18,3 +18,7 @@ Various visualizations. Nothing more.
 # Impractical jokers biggest losers
 
 ![](graphs/impratical_jokers.png)
+
+# covid-19 au Québec
+
+![](graphs/covid19_map_quebec.png)
