@@ -22,3 +22,7 @@ Various visualizations. Nothing more.
 # covid-19 au Québec
 
 ![](graphs/covid19_map_quebec.png)
+
+# covid-19 novel cases
+
+![](graphs/covid19_cumulative_curves.png)
