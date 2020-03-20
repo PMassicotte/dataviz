@@ -71,7 +71,7 @@ total_case_confirmed %>%
     y = "Cumulative number of confirmed cases",
     title = "Coronavirus trajectory in the world",
     subtitle = glue::glue(
-      "The confirmed novel cases of Coronavirus (COVID-19) increase rapidly soon after it reaches the<br>number of 100. <span style = 'color:#B48EADFF;'>Italy</span>, <span style = 'color:#EBCB8BFF;'>Spain</span>, <span style = 'color:#5991FF;'>France</span> and the <span style = 'color:#A3BE8CFF;'>USA</span> share a similar rate of novel cases. The situation<br>is still early in <span style = 'color:#D08770FF;'>Canada</span>, but it seems to follow the same pattern. On a positive note, the rate<br>seems to stabilize in <span style = 'color:#BF616AFF;'>China</span>. *Updated on {Sys.time()}*<br>"
+      "The confirmed novel cases of Coronavirus (COVID-19) increase rapidly soon after it reaches the number of<br>100. <span style = 'color:#B48EADFF;'>Italy</span>, <span style = 'color:#EBCB8BFF;'>Spain</span>, <span style = 'color:#5991FF;'>France</span> and the <span style = 'color:#A3BE8CFF;'>USA</span> share a similar rate of novel cases. The situation is still early in <span style = 'color:#D08770FF;'>Canada</span>,<br>but it seems to follow the same pattern. On a positive note, the rate seems to stabilize in <span style = 'color:#BF616AFF;'>China</span>.<br>*Updated on {Sys.time()}*<br>"
     ),
     caption = "Data: https://github.com/CSSEGISandData/COVID-19\nVisualization: @philmassicotte"
   ) +
@@ -101,12 +101,12 @@ total_case_confirmed %>%
     plot.caption = element_text(
       size = 6,
       color = "gray75",
-      family = "Advent Pro"
+      family = "Montserrat"
     ),
     plot.subtitle = element_markdown(
       size = 8,
       family = "Montserrat",
-      lineheight = 1.2,
+      lineheight = 1.5,
       margin = margin(b = unit(5, "lines"))
     )
   )
