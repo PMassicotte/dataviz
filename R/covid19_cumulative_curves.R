@@ -22,7 +22,7 @@ df %>%
 range(df$date)
 
 total_case_confirmed <- df %>%
-  filter(country_region %in% c("Canada", "US", "Italy", "China", "Spain")) %>%
+  filter(country_region %in% c("Canada", "US", "Italy", "China", "Spain", "France")) %>%
   group_by(country_region, date) %>%
   summarise(total_case_confirmed = sum(case_confirmed)) %>%
   ungroup()
@@ -49,22 +49,30 @@ total_case_confirmed %>%
       y = total_case_confirmed,
       label = glue::glue("{country_region} ({scales::number(total_case_confirmed)})")
     ),
-    nudge_x = 1,
-    nudge_y = 1,
-    hjust = -0.5,
+    # nudge_x = 1,
+    # nudge_y = 1,
+    hjust = -1,
     segment.colour = "gray75",
     segment.size = 0.25
   ) +
   scale_x_continuous(
-    expand = expansion(mult = c(0.02, 0.5)),
+    expand = expansion(mult = c(0.05, 0.5)),
     breaks = scales::breaks_pretty()
   ) +
-  scale_y_continuous(breaks = scales::breaks_pretty()) +
+  scale_y_log10(labels = scales::label_number_auto()) +
+  annotation_logticks(
+    sides = "l",
+    color = "gray50",
+    size = 0.25
+  ) +
+  # scale_y_continuous(breaks = scales::breaks_pretty()) +
   labs(
     x = "Days since cumulative confirmed case reached 100",
     y = "Cumulative number of confirmed cases",
     title = "Coronavirus trajectory in the world",
-    subtitle = "The confirmed novel cases of Coronavirus (COVID-19) increase rapidly soon after it reaches the<br>number of 100. <span style = 'color:#B48EADFF;'>Italy</span>, <span style = 'color:#EBCB8BFF;'>Spain</span> and the <span style = 'color:#A3BE8CFF;'>USA</span> share a similar rate of novel cases. The situation is still<br>early in <span style = 'color:#D08770FF;'>Canada</span>, but it seems to follow the same pattern. On a positive note, the rate seems to<br>stabilize in <span style = 'color:#BF616AFF;'>China</span>.",
+    subtitle = glue::glue(
+      "The confirmed novel cases of Coronavirus (COVID-19) increase rapidly soon after it reaches the<br>number of 100. <span style = 'color:#B48EADFF;'>Italy</span>, <span style = 'color:#EBCB8BFF;'>Spain</span>, <span style = 'color:#5991FF;'>France</span> and the <span style = 'color:#A3BE8CFF;'>USA</span> share a similar rate of novel cases. The situation<br>is still early in <span style = 'color:#D08770FF;'>Canada</span>, but it seems to follow the same pattern. On a positive note, the rate<br>seems to stabilize in <span style = 'color:#BF616AFF;'>China</span>. *Updated on {Sys.time()}*<br>"
+    ),
     caption = "Data: https://github.com/CSSEGISandData/COVID-19\nVisualization: @philmassicotte"
   ) +
   scale_color_manual(
@@ -73,7 +81,8 @@ total_case_confirmed %>%
       "Canada" = "#D08770FF",
       "Spain" = "#EBCB8BFF",
       "US" = "#A3BE8CFF",
-      "Italy" = "#B48EADFF"
+      "Italy" = "#B48EADFF",
+      "France" = "#5991FF"
     )
   ) +
   theme(
@@ -86,6 +95,7 @@ total_case_confirmed %>%
     panel.background = element_rect(fill = "#3c3c3c"),
     text = element_text(color = "white"),
     axis.text = element_text(color = "white"),
+    # axis.ticks.y = element_line(color = "white", size = 0.15),
     plot.title = element_text(hjust = 0, family = "Lalezar"),
     plot.title.position = "plot",
     plot.caption = element_text(
@@ -97,7 +107,7 @@ total_case_confirmed %>%
       size = 8,
       family = "Montserrat Light",
       lineheight = 1.2,
-      margin = margin(b = unit(25, "lines"))
+      margin = margin(b = unit(5, "lines"))
     )
   )
 
