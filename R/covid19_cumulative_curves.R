@@ -105,7 +105,7 @@ total_case_confirmed %>%
     ),
     plot.subtitle = element_markdown(
       size = 8,
-      family = "Montserrat Light",
+      family = "Montserrat",
       lineheight = 1.2,
       margin = margin(b = unit(5, "lines"))
     )
@@ -114,5 +114,7 @@ total_case_confirmed %>%
 ggsave(
   here::here("graphs", "covid19_cumulative_curves.png"),
   type = "cairo",
-  dpi = 600
+  dpi = 600,
+  width = 6.21,
+  height = 5.17
 )
