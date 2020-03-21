@@ -8,7 +8,7 @@ library(ggforce)
 theme_set(theme_maven())
 
 url <-
-  "https://www.quebec.ca/sante/problemes-de-sante/a-z/coronavirus-2019/#c46333"
+  "https://www.quebec.ca/sante/problemes-de-sante/a-z/coronavirus-2019/situation-coronavirus-quebec/"
 
 df <- read_html(url) %>%
   html_nodes("table") %>%
@@ -56,7 +56,7 @@ df_viz %>%
       group = region_no
     ),
     label.fontsize = 10,
-    label.buffer = unit(1, "cm"),
+    label.buffer = unit(0.01, "cm"),
     expand = unit(0.1, "cm"),
     label.fill = "transparent",
     con.size = 0.25,
