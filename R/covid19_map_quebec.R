@@ -32,7 +32,7 @@ region_sf <- st_read("data/raw/SHP/SHP/regio_s.shp")
 df_viz <- df %>%
   full_join(region_sf %>% as_tibble(), by = c("region_no" = "RES_CO_REG")) %>%
   st_as_sf() %>%
-  st_transform(crs = 6624)
+  st_transform(crs = 3799)
 
 lab <- df_viz %>%
   mutate(center = st_centroid(geometry)) %>%
@@ -44,29 +44,45 @@ lab
 
 df_viz %>%
   ggplot() +
-  geom_sf(aes(fill = n), show.legend = FALSE, size = 0.25, color = "gray75") +
+  geom_sf(aes(fill = n),
+    show.legend = FALSE,
+    size = 0.25,
+    color = "gray75"
+  ) +
   scale_fill_carto_c(palette = "SunsetDark") +
-  geom_mark_circle(
+  ggrepel::geom_text_repel(
     data = lab,
     aes(
       x = X,
       y = Y,
-      label = str_wrap(region_nom, 10),
-      description = glue::glue("Cas confirmés: {n}"),
-      group = region_no
+      label = glue::glue("{str_wrap(region_nom, 10)} ({n})"),
     ),
-    label.fontsize = 10,
-    label.buffer = unit(0.01, "cm"),
-    expand = unit(0.1, "cm"),
-    label.fill = "transparent",
-    con.size = 0.25,
-    con.colour = "gray65",
-    con.border = "none"
+    size = 3,
+    hjust = 0.5,
+    vjust = 0.5,
+    box.padding = 0.7, point.padding = 0.5
   ) +
+  # geom_mark_circle(
+  #   data = lab,
+  #   aes(
+  #     x = X,
+  #     y = Y,
+  #     label = str_wrap(region_nom, 10),
+  #     description = glue::glue("Cas confirmés: {n}"),
+  #     group = region_no
+  #   ),
+  #   label.fontsize = 10,
+  #   label.buffer = unit(0.01, "cm"),
+  #   expand = unit(0.1, "cm"),
+  #   label.fill = "transparent",
+  #   con.size = 0.25,
+  #   con.colour = "gray65",
+  #   con.border = "none"
+  # ) +
   coord_sf() +
   labs(
     title = str_wrap("Nombre de cas de coronavirus confirmés au Québec", 40),
-    subtitle = glue::glue("En date du {Sys.Date()}"),
+    subtitle = glue::glue("{sum(lab$n)} cas en date du {Sys.Date()} (n'inclut pas les cas à déterminer et hors Québec)."),
     caption = "Données: https://www.quebec.ca/sante/problemes-de-sante/a-z/coronavirus-2019/"
   ) +
   theme(
