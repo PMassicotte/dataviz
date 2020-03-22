@@ -22,7 +22,6 @@ df %>%
 range(df$date)
 
 total_case_confirmed <- df %>%
-  filter(country_region %in% c("Canada", "US", "Italy", "China", "Spain", "France")) %>%
   group_by(country_region, date) %>%
   summarise(total_case_confirmed = sum(case_confirmed)) %>%
   ungroup()
@@ -33,15 +32,24 @@ total_case_confirmed <- total_case_confirmed %>%
   mutate(day = date - min(date)) %>%
   mutate(day = as.integer(day))
 
-lab <- total_case_confirmed %>%
+subset_total_case_confirmed <- total_case_confirmed %>%
+  filter(country_region %in% c("Canada", "US", "Italy", "China", "Spain", "France"))
+
+lab <- subset_total_case_confirmed %>%
   filter(day == max(day))
 
 
 # Plot --------------------------------------------------------------------
 
-total_case_confirmed %>%
+subset_total_case_confirmed %>%
   ggplot(aes(x = day, y = total_case_confirmed, color = country_region)) +
-  geom_line(size = 0.5) +
+  # geom_line(
+  #   data = total_case_confirmed,
+  #   aes(group = country_region),
+  #   color = "gray65",
+  #   size = 0.1
+  # ) +
+  geom_line(size = 0.75) +
   ggrepel::geom_text_repel(
     data = lab,
     aes(
