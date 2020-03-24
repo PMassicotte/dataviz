@@ -23,6 +23,12 @@ df <- bind_rows(last_year, this_year) %>%
   mutate(year = lubridate::year(date)) %>%
   mutate(date2 = as.Date(paste0("2020-", yday), "%Y-%j"))
 
+ggplot2_release <- tibble(
+  date2 = as.Date("2020-03-05"),
+  year = 2020
+) %>%
+  left_join(df)
+
 df %>%
   ggplot(aes(x = date2, y = count, color = factor(year))) +
   geom_line() +
@@ -40,6 +46,7 @@ df %>%
    subtitle = "Number of daily downloads of **ggplot2** for **<span style = 'color:#4B878BFF;'>2019</span>** and **<span style = 'color:#D01C1FFF;'>2020</span>**. There is a increase number of downloads<br>occuring at the end of February 2020. Is it because people have more time to do *data visualization*?",
    caption = "Visualization: @philmassicotte<br>Data: downloaded from the *cranlogs* R package"
   ) +
+  ggforce::geom_mark_circle(data = ggplot2_release, aes(label = "Release of ggplot2 3.3.0"), label.fontsize = 6, expand = unit(1, "mm"), con.size = 0.25, con.colour = "gray50", label.colour = "gray40") +
   theme(
     legend.position = "none",
     panel.border = element_blank(),
