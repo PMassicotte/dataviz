@@ -26,3 +26,7 @@ Various visualizations. Nothing more.
 # covid-19 novel cases
 
 ![](graphs/covid19_cumulative_curves.png)
+
+# ggplot2 downloads
+
+![](graphs/ggplot2_cran_download.png)
