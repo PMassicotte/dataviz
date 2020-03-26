@@ -6,7 +6,7 @@ theme_set(theme_exo())
 
 df <-
   read_csv(
-    "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
+    "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
   )
 
 df <- df %>%
@@ -27,8 +27,9 @@ df %>%
   filter(n >= 8) %>%
   ggplot(aes(x = date, y = daily_case, group = province_state)) +
   geom_line(size = 0.5) +
+  scale_x_date(date_breaks = "3 weeks", date_labels = "%b-%d") +
   # geom_point() +
-  facet_wrap(~province_state) +
+  facet_wrap(~province_state, ncol = 2) +
   labs(
     y = "Number of new daily cases",
     x = NULL,
@@ -37,7 +38,7 @@ df %>%
     caption = "Data: https://github.com/CSSEGISandData/COVID-19\nVisualization: @philmassicotte"
   ) +
   theme(
-    strip.text.x = element_text(hjust = 0, face = "bold", size = 14),
+    strip.text.x = element_text(hjust = 0, face = "bold", size = 12),
     strip.background = element_blank(),
     panel.border = element_blank(),
     plot.title.position = "plot",

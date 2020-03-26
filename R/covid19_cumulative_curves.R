@@ -6,7 +6,7 @@ theme_set(theme_exo())
 
 df <-
   read_csv(
-    "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
+    "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
   )
 
 df <- df %>%
@@ -57,11 +57,11 @@ subset_total_case_confirmed %>%
       y = total_case_confirmed,
       label = glue::glue("{country_region} ({scales::number(total_case_confirmed)})")
     ),
-    # nudge_x = 1,
+    nudge_x = 1,
     # nudge_y = 1,
     hjust = -1,
     segment.colour = "gray75",
-    segment.size = 0.25
+    segment.size = 0.25, max.iter = 1e5
   ) +
   scale_x_continuous(
     expand = expansion(mult = c(0.05, 0.5)),

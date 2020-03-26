@@ -32,7 +32,9 @@ region_sf <- st_read("data/raw/SHP/SHP/regio_s.shp")
 df_viz <- df %>%
   full_join(region_sf %>% as_tibble(), by = c("region_no" = "RES_CO_REG")) %>%
   st_as_sf() %>%
-  st_transform(crs = 3799)
+  st_transform(crs = 3799) %>%
+  group_by(region_nom) %>%
+  summarise(n = mean(n))
 
 lab <- df_viz %>%
   mutate(center = st_centroid(geometry)) %>%
@@ -82,7 +84,7 @@ df_viz %>%
   coord_sf() +
   labs(
     title = str_wrap("Nombre de cas de coronavirus confirmés au Québec", 40),
-    subtitle = glue::glue("{sum(lab$n)} cas en date du {Sys.Date()} (n'inclut pas les cas à déterminer et hors Québec)."),
+    subtitle = glue::glue("{sum(lab$n)} cas en date du {Sys.Date()}"),
     caption = "Données: https://www.quebec.ca/sante/problemes-de-sante/a-z/coronavirus-2019/"
   ) +
   theme(
