@@ -16,25 +16,25 @@ df <- df %>%
 
 df
 
-df %>%
+df_viz <- df %>%
   filter(country_region == "Canada") %>%
-  # filter(province_state == "Quebec") %>%
+  filter(!str_detect(province_state, "Recovered|Diamond|Grand")) %>%
   group_by(province_state) %>%
   arrange(date) %>%
   mutate(daily_case = lead(case_confirmed) - case_confirmed) %>%
-  filter(daily_case >= 1) %>%
-  add_count() %>%
-  filter(n >= 8) %>%
+  mutate(total_case = max(case_confirmed))
+
+df_viz %>%
   ggplot(aes(x = date, y = daily_case, group = province_state)) +
   geom_line(size = 0.5) +
   scale_x_date(date_breaks = "3 weeks", date_labels = "%b-%d") +
   # geom_point() +
-  facet_wrap(~province_state, ncol = 2) +
+  facet_wrap(~str_wrap(province_state, 20), ncol = 3) +
   labs(
     y = "Number of new daily cases",
     x = NULL,
     title = "Number of new daily cases of covid-19 in Canada",
-    subtitle = "Showing provinces for which there are data for at least 8 days.",
+    # subtitle = "Showing provinces for which there are data for at least 8 days.",
     caption = "Data: https://github.com/CSSEGISandData/COVID-19\nVisualization: @philmassicotte"
   ) +
   theme(
@@ -42,7 +42,7 @@ df %>%
     strip.background = element_blank(),
     panel.border = element_blank(),
     plot.title.position = "plot",
-    plot.title = element_text(hjust = 0, size = 14),
+    plot.title = element_text(hjust = 0.5, size = 18),
     plot.caption = element_text(size = 8)
   )
 
@@ -50,6 +50,6 @@ ggsave(
   here::here("graphs/covid19_daily_cases_canada.png"),
   dpi = 600,
   type = "cairo",
-  width = 5.45,
-  height = 4.68
+  width = 7,
+  height = 8
 )

@@ -67,13 +67,12 @@ subset_total_case_confirmed %>%
     expand = expansion(mult = c(0.05, 0.5)),
     breaks = scales::breaks_pretty()
   ) +
-  scale_y_log10(labels = scales::label_number_auto()) +
-  annotation_logticks(
-    sides = "l",
-    color = "gray50",
-    size = 0.25
-  ) +
-  # scale_y_continuous(breaks = scales::breaks_pretty()) +
+  # scale_y_log10(labels = scales::label_number_auto()) +
+  # annotation_logticks(
+  #   sides = "l",
+  #   color = "gray50",
+  #   size = 0.25
+  # ) +
   labs(
     x = "Days since cumulative confirmed case reached 100",
     y = "Cumulative number of confirmed cases",

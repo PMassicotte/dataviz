@@ -27,10 +27,14 @@ df <- read_html(url) %>%
 df
 
 # https://www.donneesquebec.ca/recherche/fr/dataset/decoupages-administratifs
-region_sf <- st_read("data/raw/SHP/SHP/regio_s.shp")
+# https://publications.msss.gouv.qc.ca/msss/document-001647/
+region_sf <-
+  st_read("data/raw/Territoires_RSS_2020/Territoires_RSS_2020.shp")
+
+region_sf
 
 df_viz <- df %>%
-  full_join(region_sf %>% as_tibble(), by = c("region_no" = "RES_CO_REG")) %>%
+  full_join(region_sf %>% as_tibble(), by = c("region_no" = "RSS_code")) %>%
   st_as_sf() %>%
   st_transform(crs = 3799) %>%
   group_by(region_nom) %>%
@@ -62,7 +66,8 @@ df_viz %>%
     size = 3,
     hjust = 0.5,
     vjust = 0.5,
-    box.padding = 0.7, point.padding = 0.5
+    box.padding = 0.7,
+    point.padding = 0.5
   ) +
   # geom_mark_circle(
   #   data = lab,
