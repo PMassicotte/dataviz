@@ -22,7 +22,9 @@ df <- read_html(url) %>%
     into = c("region_no", "region_nom"),
     regex = "(\\d{2})\\W+(.*)"
   ) %>%
-  rename(n = 3)
+  rename(n = 3) %>%
+  mutate(n = str_remove_all(n, " ")) %>%
+  mutate(n = parse_number(n))
 
 df
 

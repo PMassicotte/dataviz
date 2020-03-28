@@ -34,7 +34,7 @@ df_viz %>%
     y = "Number of new daily cases",
     x = NULL,
     title = "Number of new daily cases of covid-19 in Canada",
-    # subtitle = "Showing provinces for which there are data for at least 8 days.",
+    subtitle = glue::glue("Total number of confirmed cases: {sum(df_viz$daily_case, na.rm = TRUE)}"),
     caption = "Data: https://github.com/CSSEGISandData/COVID-19\nVisualization: @philmassicotte"
   ) +
   theme(
