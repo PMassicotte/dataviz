@@ -30,3 +30,7 @@ Various visualizations. Nothing more.
 # ggplot2 downloads
 
 ![](graphs/ggplot2_cran_download.png)
+
+# covid-19 in the USA
+
+![](graphs/covid19_states.png)

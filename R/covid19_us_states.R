@@ -5,7 +5,8 @@ library(ggtext)
 
 theme_set(theme_light_modified(base_family = "Roboto Condensed"))
 
-file <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+file <-
+  "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
 
 df <- read_csv(file)
 
@@ -41,14 +42,23 @@ df <- inner_join(us_hex, df_by_state, by = c("state"))
 p <- df %>%
   ggplot() +
   geom_sf(aes(fill = total_cases), size = 0.1, color = "white") +
-  geom_sf(data = us_hex_outline, color = "white", fill = "transparent", size = 1) +
+  geom_sf(
+    data = us_hex_outline,
+    color = "white",
+    fill = "transparent",
+    size = 1
+  ) +
   geom_sf_text(
-    aes(label = state_abbr),
+    aes(label = state_abbr, color = total_cases > 3000),
     size = 4,
     fontface = "plain",
-    vjust = 2.5
+    vjust = 2.5,
   ) +
-  geom_sf_text(aes(label = scales::label_number_auto()(total_cases)),
+  geom_sf_text(
+    aes(
+      label = scales::label_number_auto()(total_cases),
+      color = total_cases > 3000
+    ),
     size = 5,
     fontface = "bold"
   ) +
@@ -58,6 +68,13 @@ p <- df %>%
     trans = "log10",
     breaks = scales::log_breaks(n = 8)
   ) +
+  scale_color_manual(guide = FALSE, values = c("black", "#E8E8E7")) +
+  # rcartocolor::scale_color_carto_c(
+  #     palette = "Teal",
+  #     trans = "log10",
+  #     breaks = scales::log_breaks(n = 8),
+  #     direction = -1
+  #   ) +
   guides(
     fill = guide_colorbar(
       barheight = unit(4, units = "mm"),
@@ -73,7 +90,9 @@ p <- df %>%
   ) +
   labs(
     title = "Number of confirmed cases of covid-19 in the USA",
-    subtitle = glue::glue("Number of confirmed cases: **{scales::label_number_auto()(sum(df$total_cases))}** *(updated on {Sys.Date()})*"),
+    subtitle = glue::glue(
+      "Number of confirmed cases: **{scales::label_number_auto()(sum(df$total_cases))}** *(updated on {Sys.Date()})*"
+    ),
     caption = "Data: https://github.com/nytimes/covid-19-data\nVisualization: @philmassicotte"
   ) +
   theme(
@@ -87,28 +106,29 @@ p <- df %>%
     plot.background = element_rect(fill = "#3c3c3c"),
     legend.background = element_rect(fill = "#3c3c3c"),
     strip.background = element_rect(fill = "#3c3c3c"),
-    strip.text = element_text(
-      color = "gray75",
-      size = 24,
-      face = "bold"
-    ),
+    strip.text = element_text(color = "gray75",
+                              size = 24,
+                              face = "bold"),
     plot.title = element_text(
       color = "white",
       hjust = 0.5,
       size = 28
     ),
     plot.caption = element_text(color = "gray75", size = 12),
-    plot.subtitle = element_markdown(color = "gray75", hjust = 0.5, size = 18)
+    plot.subtitle = element_markdown(
+      color = "gray75",
+      hjust = 0.5,
+      size = 18
+    )
   )
 
 pdf_file <- here::here("graphs", "covid19_states.pdf")
 png_file <- here::here("graphs", "covid19_states.png")
 
 ggsave(pdf_file,
-  device = cairo_pdf,
-  width = 10,
-  height = 12
-)
+       device = cairo_pdf,
+       width = 10,
+       height = 12)
 
 knitr::plot_crop(pdf_file)
 
