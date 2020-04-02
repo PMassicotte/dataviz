@@ -29,7 +29,7 @@ df_viz %>%
   geom_line(size = 0.5) +
   scale_x_date(date_breaks = "3 weeks", date_labels = "%b-%d") +
   # geom_point() +
-  facet_wrap(~str_wrap(province_state, 20), ncol = 3) +
+  facet_wrap(~str_wrap(province_state, 20), ncol = 3, scales = "free_y") +
   labs(
     y = "Number of new daily cases",
     x = NULL,
