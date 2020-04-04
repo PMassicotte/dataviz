@@ -1,6 +1,6 @@
 library(tidyverse)
 library(ggpmthemes)
-library(ggtext)
+
 
 theme_set(theme_exo())
 

@@ -68,7 +68,7 @@ df_viz %>%
     size = 3,
     hjust = 0.5,
     vjust = 0.5,
-    box.padding = 0.7,
+    box.padding = 0.5,
     point.padding = 0.5
   ) +
   # geom_mark_circle(
@@ -90,7 +90,7 @@ df_viz %>%
   # ) +
   coord_sf() +
   labs(
-    title = str_wrap("Nombre de cas de coronavirus confirmés au Québec", 40),
+    title = str_wrap("Nombre de cas de coronavirus confirmés au Québec", 35),
     subtitle = glue::glue("{sum(lab$n)} cas en date du {Sys.Date()}"),
     caption = "Données: https://www.quebec.ca/sante/problemes-de-sante/a-z/coronavirus-2019/"
   ) +
@@ -102,7 +102,8 @@ df_viz %>%
     axis.text = element_blank(),
     panel.grid = element_blank(),
     panel.border = element_blank(),
-    plot.title.position = "plot"
+    plot.title.position = "plot",
+    plot.title = element_text(hjust = 0.5)
   )
 
 ggsave(
