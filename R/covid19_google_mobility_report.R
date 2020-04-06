@@ -1,57 +1,196 @@
 library(tidyverse)
+library(vroom)
+library(ggpmthemes)
+library(ggtext)
+
+theme_set(theme_light_modified(base_family = "Maven Pro"))
+
+rm(list = ls())
 
 # https://github.com/datasciencecampus/mobility-report-data-extractor
 # https://drive.google.com/drive/folders/1VFkLwK3vXm96ZXWv7HzSrL9aisE_0nJD
 
-df <- tibble::tribble(
-   ~value,        ~date,  ~origin,
-   40.662, "2020-02-16", "Canada",
-   62.839, "2020-02-17", "Canada",
-    6.031, "2020-02-18", "Canada",
-     9.33, "2020-02-19", "Canada",
-    13.55, "2020-02-20", "Canada",
-   10.242, "2020-02-21", "Canada",
-   27.859, "2020-02-22", "Canada",
-   36.014, "2020-02-23", "Canada",
-   18.663, "2020-02-24", "Canada",
-    8.977, "2020-02-25", "Canada",
-    0.646, "2020-02-26", "Canada",
-   -5.982, "2020-02-27", "Canada",
-   -5.097, "2020-02-28", "Canada",
-   10.508, "2020-02-29", "Canada",
-   22.956, "2020-03-01", "Canada",
-    1.032, "2020-03-02", "Canada",
-    8.412, "2020-03-03", "Canada",
-   10.917, "2020-03-04", "Canada",
-   17.533, "2020-03-05", "Canada",
-    5.614, "2020-03-06", "Canada",
-   17.219, "2020-03-07", "Canada",
-   49.772, "2020-03-08", "Canada",
-   30.748, "2020-03-09", "Canada",
-   -2.055, "2020-03-10", "Canada",
-   11.658, "2020-03-11", "Canada",
-   11.479, "2020-03-12", "Canada",
-  -16.249, "2020-03-13", "Canada",
-   -8.151, "2020-03-14", "Canada",
-   27.697, "2020-03-15", "Canada",
-   14.783, "2020-03-16", "Canada",
-    6.772, "2020-03-17", "Canada",
-   14.221, "2020-03-18", "Canada",
-   17.924, "2020-03-19", "Canada",
-    -7.84, "2020-03-20", "Canada",
-   11.465, "2020-03-21", "Canada",
-    3.991, "2020-03-22", "Canada",
-  -26.686, "2020-03-23", "Canada",
-   -9.855, "2020-03-24", "Canada",
-    1.335, "2020-03-25", "Canada",
-  -17.949, "2020-03-26", "Canada",
-   -9.585, "2020-03-27", "Canada",
-  -30.058, "2020-03-28", "Canada",
-  -16.339, "2020-03-29", "Canada"
+extract_data <- function(dir) {
+  # dir <- "data/raw/google_mobility/CSV/USA/"
+
+  category <- c(
+    "Retail & recreation",
+    "Grocery & pharmacy",
+    "Parks",
+    "Transit stations",
+    "Workplaces",
+    "Residential"
   )
 
+  df <- fs::dir_ls(dir) %>%
+    enframe(value = "data_file", name = NULL) %>%
+    mutate(data = map(
+      data_file,
+      vroom,
+      col_select = c(1:4),
+      col_types = cols(
+        value = col_double(),
+        date = col_date(format = ""),
+        origin = col_character()
+      )
+    )) %>%
+    mutate(file_num = str_match(data_file, "-(\\d+)\\.csv")[, 2]) %>%
+    mutate(file_num = parse_number(file_num)) %>%
+    arrange(file_num) %>%
+    mutate(category = rep(category, times = nrow(.) / 6))
 
-df %>%
-  mutate(date = as.Date(date, "%Y-%m-%d")) %>%
-  ggplot(aes(x = date, y = value)) +
-  geom_line()
+
+  return(df)
+}
+
+dirs <- c(
+  "data/raw/google_mobility/CSV/Canada/",
+  "data/raw/google_mobility/CSV/USA/"
+)
+
+df <- map_df(dirs, extract_data) %>%
+  unnest(data) %>%
+  mutate(value = value / 100)
+
+df_usa_states <- df %>%
+  filter(origin == "USA") %>%
+  filter(file_num > 6)
+
+df_usa_global <- df %>%
+  filter(origin == "USA") %>%
+  filter(file_num <= 6)
+
+df_canada_provinces <- df %>%
+  filter(origin == "Canada") %>%
+  filter(file_num > 6)
+
+df_canada_global <- df %>%
+  filter(origin == "Canada") %>%
+  filter(file_num <= 6)
+
+df_Québec <- df %>%
+  filter(origin == "Canada") %>%
+  filter(file_num %in% 67:72)
+
+df_Québec %>%
+  count(file_num)
+
+# Plot --------------------------------------------------------------------
+
+p <- ggplot() +
+  geom_line(
+    data = df_usa_states,
+    aes(x = date, y = value, group = data_file),
+    size = 0.25,
+    color = "#5D8CA8",
+    alpha = 0.1,
+    show.legend = FALSE
+  ) +
+  geom_line(
+    data = df_canada_provinces,
+    aes(x = date, y = value, group = data_file),
+    size = 0.25,
+    color = "#D5695D",
+    alpha = 0.2,
+    show.legend = FALSE
+  ) +
+  geom_line(
+    data = df_usa_global,
+    aes(
+      x = date,
+      y = value,
+      group = data_file,
+      color = "USA"
+    ),
+    size = 0.5,
+    alpha = 1
+  ) +
+  geom_line(
+    data = df_canada_global,
+    aes(
+      x = date,
+      y = value,
+      group = data_file,
+      color = "Canada"
+    ),
+    size = 0.5,
+    alpha = 1
+  ) +
+  geom_line(
+    data = df_Québec,
+    aes(
+      x = date,
+      y = value,
+      group = data_file,
+      color = "Québec"
+    ),
+    size = 0.5,
+    alpha = 1
+  ) +
+  geom_hline(
+    yintercept = 0,
+    lty = 2,
+    color = "gray75",
+    size = 0.25
+  ) +
+  facet_wrap(~category, scales = "free_y") +
+  scale_color_manual(
+    breaks = c("USA", "Canada", "Québec"),
+    values =
+      c(
+        "USA" = "#5D8CA8",
+        "Canada" = "#D5695D",
+        "Québec" = "#D3BA68"
+      ),
+    guide = guide_legend(
+      label.position = "top",
+      keywidth = unit(5, "cm"),
+      label.theme = element_text(size = 12, color = "gray85", face = "bold")
+    )
+  ) +
+  scale_y_continuous(
+    labels = scales::label_percent(),
+    breaks = scales::breaks_pretty()
+  ) +
+  scale_x_date(
+    date_breaks = "10 days",
+    date_labels = "%b %d",
+    expand = expansion(mult = c(0.1, 0.1))
+  ) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "Community Mobility Reports in the US and Canada",
+    subtitle = "Visits and length of stay at different places change compared to a baseline.<br>*The horizontal dashed baseline is the median value, for the corresponding day of the week, during the 5-week period Jan 3–Feb 6, 2020.*",
+    caption = "Data: https://github.com/datasciencecampus/mobility-report-data-extractor\nVisualization: @philmassicotte"
+  ) +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_blank(),
+    legend.background = element_rect(fill = "#3c3c3c"),
+    legend.key = element_rect(fill = "#3c3c3c"),
+    panel.background = element_rect(fill = "#3c3c3c"),
+    plot.background = element_rect(fill = "#3c3c3c"),
+    panel.border = element_blank(),
+    panel.grid = element_blank(),
+    text = element_text(color = "white"),
+    axis.text = element_text(color = "gray75"),
+    axis.ticks = element_blank(),
+    strip.background = element_blank(),
+    strip.text = element_text(
+      color = "gray50",
+      hjust = 0,
+      face = "bold",
+      size = 14
+    ),
+    plot.subtitle = element_markdown(color = "gray75", size = 10, lineheight = 1.25),
+    plot.caption = element_text(color = "gray75", size = 6)
+  )
+
+ggsave(
+  "graphs/covid19_google_mobility_report.png",
+  type = "cairo",
+  dpi = 600,
+  width = 12,
+  height = 6
+)
