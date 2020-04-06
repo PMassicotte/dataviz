@@ -43,12 +43,6 @@ lab <- subset_total_case_confirmed %>%
 
 subset_total_case_confirmed %>%
   ggplot(aes(x = day, y = total_case_confirmed, color = country_region)) +
-  # geom_line(
-  #   data = total_case_confirmed,
-  #   aes(group = country_region),
-  #   color = "gray65",
-  #   size = 0.1
-  # ) +
   geom_line(size = 0.75) +
   ggrepel::geom_text_repel(
     data = lab,
@@ -67,18 +61,13 @@ subset_total_case_confirmed %>%
     expand = expansion(mult = c(0.05, 0.5)),
     breaks = scales::breaks_pretty()
   ) +
-  # scale_y_log10(labels = scales::label_number_auto()) +
-  # annotation_logticks(
-  #   sides = "l",
-  #   color = "gray50",
-  #   size = 0.25
-  # ) +
+  scale_y_continuous(labels = scales::label_number_auto(), breaks = scales::breaks_pretty(n = 6)) +
   labs(
     x = "Days since cumulative confirmed case reached 100",
     y = "Cumulative number of confirmed cases",
     title = "Coronavirus trajectory in the world",
     subtitle = glue::glue(
-      "The confirmed novel cases of Coronavirus (COVID-19) increase rapidly soon after it reaches the number of<br>100. <span style = 'color:#B48EADFF;'>Italy</span>, <span style = 'color:#EBCB8BFF;'>Spain</span>, <span style = 'color:#5991FF;'>France</span> and the <span style = 'color:#A3BE8CFF;'>USA</span> share a similar rate of novel cases. The situation is still early in <span style = 'color:#D08770FF;'>Canada</span>,<br>but it seems to follow the same pattern. On a positive note, the rate seems to stabilize in <span style = 'color:#BF616AFF;'>China</span>.<br>*Updated on {Sys.time()}*<br>"
+      "The confirmed novel cases of Coronavirus (COVID-19) increase rapidly soon after it reaches the number of<br>100. *Updated on {Sys.time()}*"
     ),
     caption = "Data: https://github.com/CSSEGISandData/COVID-19\nVisualization: @philmassicotte"
   ) +

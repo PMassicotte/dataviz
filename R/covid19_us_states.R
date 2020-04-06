@@ -41,7 +41,7 @@ df <- inner_join(us_hex, df_by_state, by = c("state"))
 
 p <- df %>%
   ggplot() +
-  geom_sf(aes(fill = total_cases), size = 0.1, color = "white") +
+  geom_sf(aes(fill = total_cases), size = 0.5, color = "white") +
   geom_sf(
     data = us_hex_outline,
     color = "white",
@@ -66,7 +66,7 @@ p <- df %>%
   rcartocolor::scale_fill_carto_c(
     palette = "Teal",
     trans = "log10",
-    breaks = scales::log_breaks(n = 8)
+    labels = scales::label_number_auto()
   ) +
   scale_color_manual(guide = FALSE, values = c("black", "#E8E8E7")) +
   # rcartocolor::scale_color_carto_c(
@@ -78,7 +78,7 @@ p <- df %>%
   guides(
     fill = guide_colorbar(
       barheight = unit(4, units = "mm"),
-      barwidth = unit(120, units = "mm"),
+      barwidth = unit(200, units = "mm"),
       direction = "horizontal",
       ticks.colour = "#3c3c3c",
       title.position = "top",
