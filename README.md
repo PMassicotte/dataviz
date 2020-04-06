@@ -34,3 +34,11 @@ Various visualizations. Nothing more.
 # covid-19 in the USA
 
 ![](graphs/covid19_states.png)
+
+# covid-19 daily cases in Canada
+
+![](graphs/covid19_daily_cases_canada.png)
+
+# covid-19 Mobility
+
+![](graphs/covid19_google_mobility_report.png)

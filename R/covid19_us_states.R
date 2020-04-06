@@ -66,7 +66,8 @@ p <- df %>%
   rcartocolor::scale_fill_carto_c(
     palette = "Teal",
     trans = "log10",
-    labels = scales::label_number_auto()
+    labels = scales::label_number_auto(),
+    breaks = scales::breaks_log(n = 6)
   ) +
   scale_color_manual(guide = FALSE, values = c("black", "#E8E8E7")) +
   # rcartocolor::scale_color_carto_c(
