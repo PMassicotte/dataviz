@@ -42,3 +42,7 @@ Various visualizations. Nothing more.
 # covid-19 Mobility
 
 ![](graphs/covid19_google_mobility_report.png)
+
+# covid-19 in USA counties
+
+![](graphs/covid19_counties.png)
