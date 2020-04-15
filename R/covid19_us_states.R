@@ -107,9 +107,11 @@ p <- df %>%
     plot.background = element_rect(fill = "#3c3c3c"),
     legend.background = element_rect(fill = "#3c3c3c"),
     strip.background = element_rect(fill = "#3c3c3c"),
-    strip.text = element_text(color = "gray75",
-                              size = 24,
-                              face = "bold"),
+    strip.text = element_text(
+      color = "gray75",
+      size = 24,
+      face = "bold"
+    ),
     plot.title = element_text(
       color = "white",
       hjust = 0.5,
@@ -127,9 +129,10 @@ pdf_file <- here::here("graphs", "covid19_states.pdf")
 png_file <- here::here("graphs", "covid19_states.png")
 
 ggsave(pdf_file,
-       device = cairo_pdf,
-       width = 10,
-       height = 12)
+  device = cairo_pdf,
+  width = 10,
+  height = 12
+)
 
 knitr::plot_crop(pdf_file)
 
