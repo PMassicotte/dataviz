@@ -7,7 +7,7 @@ theme_set(theme_light_modified(base_family = "Roboto Condensed"))
 # https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
 
 file <- curl::curl_download(
-  "https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-04-15.xlsx",
+  "https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-geographic-disbtribution-worldwide-2020-04-16.xlsx",
   destfile = tempfile(fileext = "xlsx")
 )
 
