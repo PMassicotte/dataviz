@@ -92,7 +92,7 @@ p <- df %>%
   labs(
     title = "Number of confirmed cases of covid-19 in the USA",
     subtitle = glue::glue(
-      "Number of confirmed cases: **{scales::label_number_auto()(sum(df$total_cases))}** *(updated on {Sys.Date()})*"
+      "Number of confirmed cases: **{scales::label_number()(sum(df$total_cases))}** *(updated on {Sys.Date()})*"
     ),
     caption = "Data: https://github.com/nytimes/covid-19-data\nVisualization: @philmassicotte"
   ) +

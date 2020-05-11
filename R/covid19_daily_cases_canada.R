@@ -27,7 +27,7 @@ df_viz <- df %>%
 df_viz %>%
   ggplot(aes(x = date, y = daily_case, group = province_state)) +
   geom_line(size = 0.5) +
-  scale_x_date(date_breaks = "3 weeks", date_labels = "%b-%d") +
+  scale_x_date(date_labels = "%b-%d") +
   # geom_point() +
   facet_wrap(~str_wrap(province_state, 20), ncol = 3, scales = "free_y") +
   labs(
