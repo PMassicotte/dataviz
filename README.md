@@ -50,3 +50,8 @@ Various visualizations. Nothing more.
 # covid-19 deaths by country
 
 ![](graphs/covid19_relative_death_per_country.png)
+
+# Surmortalité au Québec (2010-2020)
+
+![](graphs/deces_quebec_surmortalite.png)
+
