@@ -6,8 +6,9 @@ theme_set(theme_light_modified(base_family = "Oxanium"))
 
 # https://ici.radio-canada.ca/nouvelle/1713466/canada-surmortalie-deces-morts-covid-coronavirus-pandemie
 
-df <-
-  readxl::read_excel("~/Downloads/DecesSemaine_QC_2010-2020_GrAge.xlsx", skip = 5) %>%
+file <- pins::pin("https://www.stat.gouv.qc.ca/statistiques/population-demographie/deces-mortalite/DecesSemaine_QC_2010-2020_GrAge.xlsx")
+
+df <- readxl::read_excel(file, skip = 5) %>%
   drop_na(Statut) %>%
   type_convert() %>%
   pivot_longer(
@@ -24,7 +25,7 @@ df
 df <- df %>%
   mutate(
     date =
-      lubridate::parse_date_time(paste(2010, semaine, "Mon", sep = "/"), "Y/W/a")
+      lubridate::parse_date_time(paste(2012, semaine, "Mon", sep = "/"), "Y/W/a")
   ) %>%
   mutate(mois = lubridate::month(date, label = TRUE)) %>%
   mutate(date = as.Date(date))
