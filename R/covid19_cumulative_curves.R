@@ -33,7 +33,7 @@ total_case_confirmed <- total_case_confirmed %>%
   mutate(day = as.integer(day))
 
 subset_total_case_confirmed <- total_case_confirmed %>%
-  filter(country_region %in% c("Canada", "US", "Italy", "China", "Spain", "France"))
+  filter(country_region %in% c("Canada", "US", "Italy", "China", "Spain", "France", "Brazil"))
 
 lab <- subset_total_case_confirmed %>%
   filter(day == max(day))
@@ -55,13 +55,17 @@ subset_total_case_confirmed %>%
     # nudge_y = 1,
     hjust = -1,
     segment.colour = "gray75",
-    segment.size = 0.25, max.iter = 1e5
+    segment.size = 0.25,
+    max.iter = 1e5
   ) +
   scale_x_continuous(
     expand = expansion(mult = c(0.05, 0.5)),
     breaks = scales::breaks_pretty()
   ) +
-  scale_y_continuous(labels = scales::label_number_auto(), breaks = scales::breaks_pretty(n = 6)) +
+  scale_y_continuous(
+    labels = scales::label_number_si(accuracy = 0.01),
+    breaks = scales::breaks_pretty(n = 6)
+  ) +
   labs(
     x = "Days since cumulative confirmed case reached 100",
     y = "Cumulative number of confirmed cases",
@@ -78,7 +82,8 @@ subset_total_case_confirmed %>%
       "Spain" = "#EBCB8BFF",
       "US" = "#A3BE8CFF",
       "Italy" = "#B48EADFF",
-      "France" = "#5991FF"
+      "France" = "#5991FF",
+      "Brazil" = "#90a8c0"
     )
   ) +
   theme(
