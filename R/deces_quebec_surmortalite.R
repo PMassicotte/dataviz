@@ -50,7 +50,7 @@ p <- df %>%
     x = NULL,
     title = str_wrap("Nombre de décès par semaine au Québec entre 2010 et 2020", 35),
     subtitle = "La ligne <span style = 'color:#ef4040;'>rouge</span> représente les décès de 2020 alors que les lignes grises représentent les<br>années antérieures.",
-    caption = "Source : Institut de la statistique du Québec, fichier des décès du Registre des événements démographiques du Québec. Données extraites le 12 juin 2020."
+    caption = "Source : Institut de la statistique du Québec, fichier des décès du Registre des événements démographiques du Québec. Données extraites le 2 juillet 2020."
   ) +
   theme(
     panel.grid = element_blank(),
