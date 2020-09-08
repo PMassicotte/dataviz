@@ -3,31 +3,38 @@ library(ggpmthemes)
 
 theme_set(theme_poppins())
 
-number_of_cases <- read_csv("~/Downloads/number_of_cases.csv") %>%
+df <-
+  read_csv(
+    "https://www.inspq.qc.ca/sites/default/files/covid/donnees/combine.csv?randNum=26659766"
+  ) %>%
   janitor::clean_names() %>%
-  rename(date = date_de_declaration_du_cas) %>%
-  mutate(total_number_of_cases = par_lien_epidemiologique + en_laboratoire)
+  select(date,
+         total_number_of_cases = cas_total,
+         number_of_tests = tests_volumetrie
+  ) %>%
+  drop_na() %>%
+  mutate(date = as.Date(date, "%d/%m/%Y"))
 
-number_of_tests <- read_csv("~/Downloads/number_of_test.csv") %>%
-  janitor::clean_names() %>%
-  rename(
-    date = date_danalyse_du_prelevement,
-    number_of_tests = nombre_de_tests_de_depistage
-  )
-
-df <- inner_join(number_of_cases, number_of_tests) %>%
-  mutate(percentage_positive_tests = total_number_of_cases / number_of_tests)
-
-p <- df %>%
+df %>%
+  mutate(percentage_positive_tests = total_number_of_cases / number_of_tests) %>%
   ggplot(aes(x = date, y = percentage_positive_tests)) +
   geom_line() +
-  scale_x_datetime(date_breaks = "4 weeks", date_labels = "%B") +
-  scale_y_continuous(labels = scales::label_percent(), breaks = scales::breaks_pretty(n = 8)) +
+  scale_x_date(date_breaks = "4 weeks", date_labels = "%B") +
+  scale_y_continuous(
+    labels = scales::label_percent(),
+    breaks = scales::breaks_pretty(n = 8)
+  ) +
   labs(
     x = NULL,
     y = "Percentage of positive tests",
-    title = str_wrap("Percentage of positive COVID-19 tests for the province of Quebec", 50),
-    subtitle = str_wrap("The absolute number of cases does not provide useful information. If you test more, you will find more cases. This graph shows the number of positive cases relative to the number of tests performed.", 140),
+    title = str_wrap(
+      "Percentage of positive COVID-19 tests for the province of Quebec",
+      50
+    ),
+    subtitle = str_wrap(
+      "The absolute number of cases does not provide useful information. If you test more, you will find more cases. This graph shows the number of positive cases relative to the number of tests performed.",
+      140
+    ),
     caption = "Visualization: @philmassicotte\nData: https://www.inspq.qc.ca/covid-19/donnees"
   ) +
   theme(
