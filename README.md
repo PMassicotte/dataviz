@@ -55,3 +55,9 @@ Various visualizations. Nothing more.
 
 ![](graphs/deces_quebec_surmortalite.png)
 
+# Nombre relatif de cas positif à la COVID-19 au Québec
+
+![](graphs/covid19_quebec_relative_number_positive_tests.png)
+
+
+
