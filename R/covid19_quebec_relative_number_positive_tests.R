@@ -6,23 +6,38 @@ theme_set(theme_poppins())
 
 # To have french dates
 # https://askubuntu.com/questions/76013/how-do-i-add-locale-to-ubuntu-server
-# sudo /etc/locale.gen
+# sudo nano /etc/locale.gen
 # sudo locale-gen fr_FR.UTF-8
 
 Sys.setlocale("LC_TIME", "fr_CA.UTF-8")
 
-df <-
-  read_csv(
-    "https://www.inspq.qc.ca/sites/default/files/covid/donnees/combine.csv?randNum=26659766"
-  ) %>%
+# df <-
+#   read_csv(
+#     "https://www.inspq.qc.ca/sites/default/files/covid/donnees/combine.csv?randNum=26659766"
+#   ) %>%
+#   janitor::clean_names() %>%
+#   select(date,
+#     total_number_of_cases = cas_total,
+#     number_of_tests = tests_volumetrie
+#   ) %>%
+#   drop_na() %>%
+#   mutate(date = as.Date(date, "%d/%m/%Y")) %>%
+#   mutate(percentage_positive_tests = total_number_of_cases / number_of_tests)
+
+df_case <- read_csv("~/Downloads/chart.csv") %>%
   janitor::clean_names() %>%
-  select(date,
-    total_number_of_cases = cas_total,
-    number_of_tests = tests_volumetrie
-  ) %>%
-  drop_na() %>%
-  mutate(date = as.Date(date, "%d/%m/%Y")) %>%
-  mutate(percentage_positive_tests = total_number_of_cases / number_of_tests)
+  mutate(total_number_of_cases = par_lien_epidemiologique + en_laboratoire) %>%
+  mutate(date = as.Date(date_de_declaration_du_cas))
+
+df_test <- read_csv("~/Downloads/chart (1).csv") %>%
+  janitor::clean_names() %>%
+  rename(number_of_tests = nombre_de_tests_de_depistage) %>%
+  mutate(date = as.Date(date_danalyse_du_prelevement))
+
+df <- df_case %>%
+  inner_join(df_test) %>%
+  mutate(percentage_positive_tests = total_number_of_cases / number_of_tests) %>%
+  drop_na(date, percentage_positive_tests)
 
 date_breaks <- seq(min(df$date), max(df$date), length.out = 4)
 
