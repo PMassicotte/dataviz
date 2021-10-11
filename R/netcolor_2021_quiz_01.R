@@ -22,7 +22,7 @@ theme_update(
   strip.text = element_text(face = "bold", size = 10, color = "#4c4a4a")
 )
 
-df <- readxl::read_excel("data/raw/NetCOLOR quizz 1.xlsx",
+df <- readxl::read_excel("data/raw/NetCOLOR quizz 2.xlsx",
   sheet = "RawReportData Data"
 ) %>%
   janitor::clean_names()
@@ -89,7 +89,7 @@ p <- df_viz %>%
   )
 
 ggsave(
-  "graphs/netcolor_quiz_01.pdf",
+  "graphs/netcolor_quiz_02.pdf",
   device = cairo_pdf,
   width = 9,
   height = 15

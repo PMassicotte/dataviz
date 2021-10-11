@@ -49,7 +49,7 @@ p <- df %>%
     size = 1
   ) +
   geom_sf_text(
-    aes(label = state_abbr, color = total_cases > 3000),
+    aes(label = state_abbr, color = total_cases > 1e5),
     size = 4,
     fontface = "plain",
     vjust = 2.5,
@@ -57,9 +57,9 @@ p <- df %>%
   geom_sf_text(
     aes(
       label = scales::label_number_auto()(total_cases),
-      color = total_cases > 3000
+      color = total_cases > 1e5
     ),
-    size = 5,
+    size = 3,
     fontface = "bold"
   ) +
   coord_sf(crs = 3395) +

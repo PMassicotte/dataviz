@@ -31,7 +31,7 @@ df_case <- read_csv("~/Downloads/chart.csv") %>%
 
 df_test <- read_csv("~/Downloads/chart (1).csv") %>%
   janitor::clean_names() %>%
-  rename(number_of_tests = nombre_de_tests_de_depistage) %>%
+  rename(number_of_tests = nombre_de_prelevements_analyses) %>%
   mutate(date = as.Date(date_danalyse_du_prelevement))
 
 df <- df_case %>%
@@ -44,7 +44,7 @@ date_breaks <- seq(min(df$date), max(df$date), length.out = 4)
 p <- df %>%
   ggplot(aes(x = date, y = percentage_positive_tests)) +
   geom_line() +
-  scale_x_date(date_breaks = "4 weeks", date_labels = "%d %B", expand = expansion(mult = c(0.1, 0.2))) +
+  scale_x_date(date_breaks = "4 weeks", date_labels = "%d %b", expand = expansion(mult = c(0.1, 0.2))) +
   scale_y_continuous(
     labels = scales::label_percent(),
     breaks = scales::breaks_pretty(n = 8)
