@@ -63,16 +63,16 @@ p <- df |>
   scale_y_continuous(breaks = scales::breaks_pretty(n = 6)) +
   labs(
     x = NULL,
-    y = quote(Arctic ~ sea ~ ice ~ extent ~ (10^6 ~ x ~ km^{
-      2
-    })),
-    color = NULL
+    y = quote(Arctic ~ sea ~ ice ~ extent ~ (10^6 ~ x ~ km^{2})),
+    color = NULL,
+    caption = "Data from https://nsidc.org/ | @philmassicotte"
   ) +
   theme(
     panel.border = element_blank(),
     panel.background = element_rect(fill = "#2B2D42", color = NA),
     panel.grid = element_line(color = "gray35", size = 0.1),
     plot.background = element_rect(fill = "#2B2D42", color = NA),
+    plot.caption = element_text(colour = "grey75"),
     legend.background = element_rect(fill = "#2B2D42"),
     legend.key = element_rect(fill = "#2B2D42"),
     legend.text = element_text(color = "white"),
