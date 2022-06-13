@@ -72,7 +72,7 @@ p <- df |>
     panel.background = element_rect(fill = "#2B2D42", color = NA),
     panel.grid = element_line(color = "gray35", size = 0.1),
     plot.background = element_rect(fill = "#2B2D42", color = NA),
-    plot.caption = element_text(colour = "grey75"),
+    plot.caption = element_text(colour = "grey75", size = 6),
     legend.background = element_rect(fill = "#2B2D42"),
     legend.key = element_rect(fill = "#2B2D42"),
     legend.text = element_text(color = "white"),
