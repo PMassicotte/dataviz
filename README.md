@@ -3,6 +3,10 @@
 
 Various visualizations. Nothing more.
 
+# Arctic sea ice extent
+
+![](graphs/arctic_seaice_extent.png)
+
 # Arctinet 2019 ASM
 
 ![](graphs/arctinet_2019_gender.png)
