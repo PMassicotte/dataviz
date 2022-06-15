@@ -3,6 +3,10 @@
 
 Various visualizations. Nothing more.
 
+# Sea ice concentration in Baffin Bay
+
+![](graphs/seaice_concentration_baffin_bay.png)
+
 # Arctic sea ice extent
 
 ![](graphs/arctic_seaice_extent.png)
