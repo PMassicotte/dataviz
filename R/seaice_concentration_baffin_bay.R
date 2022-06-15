@@ -115,7 +115,7 @@ df_viz |>
 
 ggsave(
   here::here("graphs", "seaice_concentration_baffin_bay.png"),
-  dpi = 600,
+  dpi = 300,
   width = 14,
   height = 8
 )
