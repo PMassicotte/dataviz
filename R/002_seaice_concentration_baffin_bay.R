@@ -60,7 +60,7 @@ extract_seaice_concentration <- function(date, baffin_poly) {
 
 v <- vect(baffin_bay)
 
-baffin_poly <- project(v, "EPSG:3413")
+baffin_poly <- project(v, "EPSG:3411")
 
 extract_seaice_concentration <- possibly(extract_seaice_concentration, NA)
 
