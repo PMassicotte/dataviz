@@ -4,8 +4,6 @@
 
 ![](graphs/004_drought_severity_usa.png)
 
-## Sea ice concentration in Baffin Bay
-
 ## Show your stripes
 
 [Showyourstripes](https://showyourstripes.info/) says:
