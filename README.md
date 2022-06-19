@@ -1,5 +1,19 @@
 # Various visualizations. Nothing more. Nothing less.
 
+## Drought severity in USA 
+
+![](graphs/004_drought_severity_usa.png)
+
+## Sea ice concentration in Baffin Bay
+
+## Show your stripes
+
+[Showyourstripes](https://showyourstripes.info/) says:
+
+> These ‘warming stripe’ graphics are visual representations of the change in temperature as measured in each country over the past 100+ years. Each stripe or bar represents the temperature in that country averaged over a year. For most countries, the stripes start in the year 1901 and finish in 2021. For the ocean basins and for several countries with longer datasets available the stripes start in the 19th century instead. For two cities (Stockholm and Vienna), the data starts in the 18th century.
+
+![](graphs/003_showyourstripes.png)
+
 ## Sea ice concentration in Baffin Bay
 
 ![](graphs/002_seaice_concentration_baffin_bay.png)
