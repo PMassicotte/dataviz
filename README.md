@@ -1,6 +1,10 @@
 # Various visualizations. Nothing more. Nothing less.
 
-## Drought severity in USA 
+## Chlorophyll-a concentration in Baffin Bay
+
+## ![](graphs/005_chla_concentration_baffin_bay.png) 
+
+## Drought severity in USA
 
 ![](graphs/004_drought_severity_usa.png)
 
