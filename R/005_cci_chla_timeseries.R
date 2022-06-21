@@ -64,7 +64,6 @@ df_viz
 df_viz <- df_viz |>
   replace_na(list(mean_chla = 0))
 
-
 # Plot --------------------------------------------------------------------
 
 p <- df_viz |>

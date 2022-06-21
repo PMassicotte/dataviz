@@ -67,7 +67,7 @@ df |>
     y_offset = 10.01,
     sigma = 8
   ) +
-  paletteer::scale_fill_paletteer_c("pals::ocean.matter") +
+  paletteer::scale_fill_paletteer_c("pals::ocean.amp") +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(expand = c(0, 0)) +
   labs(
