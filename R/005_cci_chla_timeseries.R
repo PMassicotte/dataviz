@@ -9,20 +9,6 @@ library(ggpmthemes)
 
 theme_set(theme_montserrat())
 
-theme_update(
-  panel.border = element_blank(),
-  panel.background = element_rect(fill = "#2B2D42", color = NA),
-  panel.grid = element_line(color = "gray35", size = 0.1),
-  plot.background = element_rect(fill = "#2B2D42", color = NA),
-  plot.caption = element_text(colour = "grey75", size = 8),
-  legend.background = element_rect(fill = "#2B2D42"),
-  legend.key = element_rect(fill = "#2B2D42"),
-  legend.text = element_text(color = "white"),
-  axis.ticks = element_blank(),
-  axis.title = element_text(color = "white"),
-  axis.text = element_text(color = "white")
-)
-
 url <-
   "https://geo.vliz.be/geoserver/wfs?request=getfeature&service=wfs&version=1.1.0&typename=MarineRegions:iho&outputformat=json&filter=%3CPropertyIsEqualTo%3E%3CPropertyName%3Eid%3C%2FPropertyName%3E%3CLiteral%3E14A%3C%2FLiteral%3E%3C%2FPropertyIsEqualTo%3E"
 
@@ -69,7 +55,7 @@ df_viz <- df_viz |>
 p <- df_viz |>
   filter(between(year, 1998, 2021)) |>
   ggplot(aes(x = year)) +
-  geom_ribbon(aes(ymin = 0, ymax = mean_chla), fill = "#595b72") +
+  geom_ribbon(aes(ymin = 0, ymax = mean_chla), fill = "#457b9d") +
   scale_y_continuous(expand = c(0, 0)) +
   labs(
     x = NULL,
@@ -84,15 +70,24 @@ p <- df_viz |>
   theme(
     legend.position = "none",
     strip.background = element_blank(),
-    strip.text = element_text(size = 16, color = "white"),
+    strip.text = element_text(size = 16, color = "grey75", face = "bold"),
     plot.title = element_text(
       color = "white",
       hjust = 0.5,
       family = "Baloo2",
       size = 40
     ),
-    axis.text = element_text(size = 12),
-    axis.title = element_text(size = 14)
+    axis.text = element_text(size = 12, color = "#8ecae6"),
+    axis.title = element_text(size = 14, color = "#8ecae6"),
+    panel.border = element_blank(),
+    panel.background = element_rect(fill = "#003049", color = NA),
+    panel.grid = element_line(color = "gray35", size = 0.1),
+    plot.background = element_rect(fill = "#003049", color = NA),
+    plot.caption = element_text(colour = "grey75", size = 8),
+    legend.background = element_rect(fill = "#003049"),
+    legend.key = element_rect(fill = "#003049"),
+    legend.text = element_text(color = "white"),
+    axis.ticks = element_blank()
   )
 
 ggsave(
