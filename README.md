@@ -1,8 +1,12 @@
 # Various visualizations. Nothing more. Nothing less.
 
+## Demographic change in USA
+
+## ![](graphs/007_usa_population_variability.png)
+
 ## Chlorophyll-a concentration in Baffin Bay
 
-## ![](graphs/005_chla_concentration_baffin_bay.png) 
+## ![](graphs/005_chla_concentration_baffin_bay.png)
 
 ## Drought severity in USA
 
