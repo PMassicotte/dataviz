@@ -1,5 +1,9 @@
 # Various visualizations. Nothing more. Nothing less.
 
+## Construction permits in San Francisco
+
+## ![](graphs/008_construction_permits_san_francisco.png)
+
 ## Demographic change in USA
 
 ## ![](graphs/007_usa_population_variability.png)
