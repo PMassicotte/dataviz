@@ -91,7 +91,7 @@ p <- ggplot() +
     )
   ) +
   labs(title = str_wrap("Relative demographic changes in USA between 1990 and 2021", 40)) +
-  theme_void(base_family = "Ubuntu") +
+  theme_void() +
   theme(
     legend.position = "top",
     legend.box = "vertical",
@@ -100,7 +100,7 @@ p <- ggplot() +
     panel.background = element_rect(fill = "#3c3c3c", color = NA),
     plot.background = element_rect(fill = "#3c3c3c", color = NA),
     plot.title = element_text(
-      family = "Montserrat",
+      family = "Poppins",
       color = "white",
       size = 24,
       hjust = 0.5
