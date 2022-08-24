@@ -97,8 +97,8 @@ p <- ggplot() +
     legend.box = "vertical",
     legend.margin = margin(b = 15, t = 15),
     strip.text = element_text(size = 24, face = "bold"),
-    panel.background = element_rect(fill = "#3c3c3c", color = NA),
-    plot.background = element_rect(fill = "#3c3c3c", color = NA),
+    panel.background = element_rect(fill = "#2a2d34", color = NA),
+    plot.background = element_rect(fill = "#2a2d34", color = NA),
     plot.title = element_text(
       family = "Poppins",
       color = "white",
